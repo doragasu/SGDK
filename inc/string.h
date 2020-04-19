@@ -9,9 +9,15 @@
  * This unit provides basic null terminated string operations and type conversions.
  */
 
-#ifndef _STRING_H_
-#define _STRING_H_
+#ifndef _SGDK_STRING_H_
+#define _SGDK_STRING_H_
 
+#if (ENABLE_NEWLIB == 1)
+// Include the string.h file from newlib
+#include_next <string.h>
+#endif
+
+#if (ENABLE_NEWLIB == 0)
 
 /**
  *  \brief
@@ -37,7 +43,6 @@ typedef __gnuc_va_list va_list;
                        - ((sizeof (TYPE) < __va_rounded_size (char)     \
                            ? sizeof (TYPE) : __va_rounded_size (TYPE))))))
 
-#if (ENABLE_NEWLIB == 0)
 /**
  *  \brief
  *      Calculate the length of a string (limited to 65535 characters maximum).
@@ -258,5 +263,5 @@ void fix16ToStr(fix16 value, char *str, u16 numdec);
 u16 sprintf(char *buffer,const char *fmt, ...) __attribute__ ((format (printf, 2, 3)));
 #endif  // ENABLE_NEWLIB
 
-#endif // _STRING_H_
+#endif // _SGDK_STRING_H_
 
